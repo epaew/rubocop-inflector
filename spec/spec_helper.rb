@@ -37,6 +37,13 @@ RSpec.configure do |config|
 
   config.include(RuboCop::RSpec::ExpectOffense)
 
+  begin
+    # NOTE: This shared context was introduced in rubocop-rspec 2.15.0 and it requires Ruby >= 2.6.0
+    require 'rubocop/rspec/shared_contexts/default_rspec_language_config_context'
+    config.include_context 'with default RSpec/Language config', :config
+  rescue
+  end
+
   # Initialize ActiveSupport::Inflector
   config.before do
     ActiveSupport::Inflector.inflections.clear
